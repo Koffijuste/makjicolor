@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Présentation Boutique Peinture | MAKJICOLOR{% endblock %}
+{% block content %}
+
+<div class="histoire-container" style="background-image: url('{{ url_for('static', filename='img/vue-de-dessus-sur-pot-de-peinture.jpg') }}'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; width: 100%;">
+  <div class="histoire-hero-section">
+    <div class="brand">
+      <div class="logo-badge">
+        <img src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Logo" style="width:auto;height:56px;border-radius:12px;">
+      </div>
+      <div>
+        <h1>MAKJICOLOR — Présentation de la Boutique</h1>
+        <p class="lead">Votre référence en peintures bâtiment, accessoires et solutions professionnelles.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="histoire-main">
+    <div class="histoire-content">
+      <div class="card">
+        <h2>Qui sommes-nous ?</h2>
+        <p>
+          Boutique Peinture est un magasin en ligne spécialisé dans la vente de peintures pour bâtiments — intérieures et extérieures —, finitions, vernis et accessoires. Nous accompagnons particuliers, artisans et entreprises avec des produits fiables et adaptés à chaque besoin.
+        </p>
+        <p>
+          Depuis notre création, nous mettons l'accent sur la qualité, la durabilité et le conseil professionnel pour vous garantir des résultats impeccables sur tous vos chantiers.
+        </p>
+
+        <div class="features">
+          <div class="feature">
+            <strong>Marques reconnues</strong>
+            <span>Qualité garantie</span>
+          </div>
+          <div class="feature">
+            <strong>Livraison rapide</strong>
+            <span>En 48-72h selon la zone</span>
+          </div>
+        </div>
+
+        <div class="artist-grid">
+          <div class="artist-card">
+            <h3>Peinture intérieure</h3>
+            <p>Peintures lessivables, finition mate ou satinée, parfaites pour salons et chambres.</p>
+          </div>
+          <div class="artist-card">
+            <h3>Peinture extérieure</h3>
+            <p>Formulations anti-UV et anti-moisissure pour façades durables.</p>
+          </div>
+        </div>
+
+        <div class="cta-buttons">
+          <a href="{{ url_for('accueil') }}#products" class="btn">Voir les produits</a>
+          <a href="{{ url_for('contact') }}" class="btn-outline">Nous contacter</a>
+        </div>
+      </div>
+    </div>
+
+    <aside class="histoire-sidebar">
+      <div class="card">
+        <h3>Nos chiffres clés</h3>
+        <ul>
+          <li>+ 3,000 clients satisfaits</li>
+          <li>+ 120 références en stock</li>
+          <li>Livraison dans tout le pays</li>
+        </ul>
+
+        <div class="engagement-stats">
+          <h4>Engagement & Confiance</h4>
+          <p>Une communauté en pleine expansion : artisans, entreprises et particuliers.</p>
+          <div class="tags">
+            <span>#Peinture</span>
+            <span>#Décoration</span>
+            <span>#Bâtiment</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+{% endblock %}

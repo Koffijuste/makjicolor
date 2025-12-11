@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+{% block title %}Panier | MAKJICOLOR{% endblock %}
+{% block content %}
+
+<div class="cart-container">
+  <div class="container">
+    <div class="cart-header">
+      <h1>Votre Panier</h1>
+      <p>{{ panier|length }} article{% if panier|length > 1 %}s{% endif %} dans votre panier</p>
+    </div>
+
+    {% if panier %}
+      <div class="cart-items">
+        {% for item in panier %}
+        <div class="cart-item-card">
+          <div class="cart-item-image">
+            <img src="{{ item.produit.image_url if item.produit.image_url.startswith(('http://', 'https://')) else url_for('static', filename=item.produit.image_url or 'img/Cover-Peinture.jpg') }}"
+                 alt="{{ item.produit.nom }}"
+                 onerror="this.src='{{ url_for('static', filename='img/Cover-Peinture.jpg') }}'">
+          </div>
+          <div class="cart-item-details">
+            <h3>{{ item.produit.nom }}</h3>
+            <p class="item-meta">{{ item.produit.dimensions }} · {{ item.produit.materiau }}</p>
+            <p class="item-price">{{ "{:,.0f}".format(item.produit.prix) }} FCFA</p>
+          </div>
+          <div class="cart-item-quantity">
+            <form method="POST" action="{{ url_for('main.modifier_quantite') }}">
+              <input type="hidden" name="produit_id" value="{{ item.produit.id }}">
+              <button type="submit" name="action" value="diminuer" class="qty-btn"> <i class="fas fa-minus"></i></button>
+            </form>
+            <span class="qty-value">{{ item.quantite }}</span>
+            <form method="POST" action="{{ url_for('main.modifier_quantite') }}">
+              <input type="hidden" name="produit_id" value="{{ item.produit.id }}">
+              <button type="submit" name="action" value="augmenter" class="qty-btn"> <i class="fas fa-plus"></i></button>
+            </form>
+          </div>
+          <div class="cart-item-total">
+            <span>{{ "{:,.0f}".format(item.produit.prix * item.quantite) }} FCFA</span>
+          </div>
+          <a href="{{ url_for('main.supprimer_panier', produit_id=item.produit.id) }}" class="cart-item-remove" aria-label="Supprimer">
+            <i class="fas fa-trash"></i>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="cart-summary">
+        <div class="summary-row">
+          <span>Sous-total</span>
+          <span>{{ "{:,.0f}".format(total) }} FCFA</span>
+        </div>
+        <div class="shipping-selector">
+          <label for="shipping">Zone de livraison :</label>
+          <form method="POST" action="{{ url_for('main.update_shipping') }}" style="display:inline;">
+            <select name="country" onchange="this.form.submit()">
+              <option value="CIV" {% if shipping_country == 'CIV' %}selected{% endif %}>🇨🇮 Côte d’Ivoire (2 000 FCFA)</option>
+              <option value="INTL" {% if shipping_country == 'INTL' %}selected{% endif %}>🌍 International (7 500 FCFA)</option>
+            </select>
+          </form>
+        </div>
+        <div class="summary-row total">
+          <span><strong>Total (avec livraison)</strong></span>
+          <span><strong>{{ "{:,.0f}".format(total_with_shipping) }} FCFA</strong></span>
+        </div>
+        <a href="{{ url_for('main.paiement') }}" class="btn btn-checkout">
+          <i class="fab fa-whatsapp"></i> Payer via WhatsApp
+        </a>
+        <a href="{{ url_for('main.produits') }}" class="btn btn-continue"> <i class="fas fa-th-large"></i> Continuer vos achats</a>
+      </div>
+
+    {% else %}
+      <div class="empty-cart">
+        <div class="empty-cart-icon">
+          <i class="fas fa-shopping-cart"></i>
+        </div>
+        <h2>Votre panier est vide</h2>
+        <p>Découvrez notre collection de peintures professionnelles et ajoutez vos premiers articles.</p>
+        <a href="{{ url_for('main.produits') }}" class="btn"> <i class="fas fa-th-large"></i> Explorer la boutique</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+.cart-container {
+  padding: 80px 0 60px;
+  background subtil */
+  background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('{{ url_for('static', filename='img/pexels-valeriya-34983025.jpg') }}'); */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; */
+}
+.cart-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+.cart-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+}
+.cart-header p {
+  color: var(--text-light);
+  font-size: 1.05rem;
+}
+
+/* Articles du panier */
+.cart-items {
+  margin-bottom: 2.5rem;
+}
+.cart-item-card {
+  display: grid;
+  grid-template-columns: 80px 1fr auto auto 40px;
+  gap: 1.2rem;
+  padding: 1.5rem;
+  background: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  align-items: center;
+  transition: transform 0.2s;
+}
+.cart-item-card:hover {
+  transform: translateY(-2px);
+}
+.cart-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.cart-item-details h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.3rem;
+}
+.item-meta {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 0.4rem;
+}
+.item-price {
+  font-weight: 600;
+  color: var(--primary);
+}
+.cart-item-quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  border-radius: 50%;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.qty-btn:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+.qty-value {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+.cart-item-total {
+  font-weight: 700;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+.cart-item-remove {
+  color: #e74c3c;
+  font-size: 1.2rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cart-item-remove:hover {
+  color: #c0392b;
+}
+
+/* Résumé */
+.cart-summary {
+  background: var(--bg-card);
+  padding: 1.8rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 1.05rem;
+}
+.shipping {
+  color: var(--text-light);
+}
+.total {
+  font-size: 1.3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+.btn-checkout {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  margin: 1.2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.btn-continue {
+  width: 100%;
+  background: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 12px;
+  font-weight: 600;
+}
+.btn-continue:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* Panier vide */
+.empty-cart {
+  text-align: center;
+  padding: 3rem;
+  background: var(--bg-card);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+.empty-cart-icon {
+  font-size: 3.5rem;
+  color: var(--primary);
+  margin-bottom: 1.5rem;
+}
+.empty-cart h2 {
+  margin-bottom: 1rem;
+}
+.empty-cart p {
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .cart-item-card {
+    grid-template-columns: 70px 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 1rem;
+  }
+  .cart-item-image {
+    grid-row: 1 / 3;
+  }
+  .cart-item-details {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .cart-item-quantity,
+  .cart-item-total,
+  .cart-item-remove {
+    justify-self: start;
+    grid-column: 2;
+  }
+  .cart-item-quantity {
+    grid-row: 2;
+  }
+  .cart-item-total {
+    grid-row: 2;
+    justify-self: end;
+  }
+  .cart-item-remove {
+    grid-row: 2;
+    justify-self: end;
+    margin-left: auto;
+  }
+}
+</style>
+
+{% endblock %}

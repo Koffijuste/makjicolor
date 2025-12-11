@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %}Support Client | MAKJICOLOR{% endblock %}
+{% block content %}
+<div class="support-page" style="background-image: url('{{ url_for('static', filename='img/pexels-shkrabaanthony-5493653.jpg') }}'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; width: 100%;">
+  <div class="container">
+    <h1>Support Client <i class="fas fa-headset"></i></h1>
+    <p>Notre équipe est à votre écoute du lundi au vendredi, de 9h à 18h.</p>
+
+    <div class="support-sections">
+      <div class="support-card">
+        <h2><i class="fas fa-envelope"></i> Par email</h2>
+        <p><a href="mailto:contact@artéclat.com"> contact@artéclat.com</a></p>
+        <p>Réponse sous 24 à 48h </p>
+      </div>
+
+      <div class="support-card">
+        <h2><i class="fab fa-whatsapp"></i> Par WhatsApp</h2>
+        <p><a href="https://wa.me/33612345678">+33 6 12 34 56 78</a></p>
+        <p>Pour les commandes en cours ou questions urgentes</p>
+      </div>
+
+      <div class="support-card">
+        <h2><i class="fas fa-map-marker-alt"></i> Atelier</h2>
+        <p>24 Rue des Artistes<br>75018 Paris</p>
+        <p>Sur rendez-vous uniquement</p>
+      </div>
+    </div>
+
+    <div class="faq"> 
+      <h2>Questions fréquentes <i class="fas fa-question-circle"></i></h2>
+
+      <details>
+        <summary>Comment suivre ma commande ?</summary>
+        <p>Vous recevez un email de confirmation avec numéro de suivi. Vous pouvez aussi nous contacter par WhatsApp.</p>
+      </details>
+
+      <details>
+        <summary>Les œuvres sont-elles livrées encadrées ?</summary>
+        <p>Non, nos toiles sont livrées sans cadre pour préserver leur intégrité. Mais elles sont prêtes à encadrer (châssis standard).</p>
+      </details>
+
+      <details>
+        <summary>Puis-je commander une œuvre sur mesure ?</summary>
+        <p>Oui ! Contactez-nous pour une commande personnalisée (couleurs, dimensions, thème).</p>
+      </details>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<style>
+.support-page {
+  padding: 80px 0 60px;
+}
+.support-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin: 2.5rem 0;
+}
+.support-card {
+  background: var(--bg-card);
+  padding: 1.8rem;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+.support-card h2 {
+  margin-bottom: 1rem;
+  color: var(--primary);
+  font-size: 1.4rem;
+}
+.support-card a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.support-card a:hover {
+  text-decoration: underline;
+}
+
+.faq details {
+  margin: 1.2rem 0;
+  padding: 1.2rem;
+  background: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+.faq summary {
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+}
+.faq summary::after {
+  content: "▼";
+  position: absolute;
+  right: 0;
+  color: var(--primary);
+  font-size: 1.1rem;
+  transition: transform 0.3s;
+}
+.faq details[open] summary::after {
+  transform: rotate(180deg);
+}
+.faq p {
+  margin-top: 0.8rem;
+  color: var(--text-light);
+}
+</style>

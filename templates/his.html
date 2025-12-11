@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Boutique Peinture — Présentation</title>
+  <style>
+    :root{--accent:#2b6cb0;--muted:#6b7280;--bg:#f7fafc;--card:#ffffff}
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:var(--bg); color:#0f172a}
+    header{background:linear-gradient(90deg,#e6f0ff, #ffffff); padding:36px 20px; border-bottom:1px solid rgba(15,23,42,.04)}
+    .container{max-width:1100px;margin:0 auto}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#63b3ed);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px}
+    h1{margin:0;font-size:28px}
+    p.lead{color:var(--muted);margin-top:8px}
+
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;padding:36px 0}
+    .card{background:var(--card);border-radius:14px;padding:22px;box-shadow:0 6px 18px rgba(2,6,23,.06)}
+
+    .cta{margin-top:18px;display:flex;gap:12px}
+    .btn{background:var(--accent);color:white;padding:10px 16px;border-radius:10px;text-decoration:none;font-weight:600}
+    .btn.ghost{background:transparent;color:var(--accent);border:1px solid rgba(43,108,176,.14)}
+
+    /* features */
+    .features{display:flex;gap:12px;margin-top:18px}
+    .feature{flex:1;background:linear-gradient(180deg,#fff,#fbfdff);padding:14px;border-radius:10px;border:1px solid rgba(15,23,42,.03);text-align:center}
+    .feature h4{margin:6px 0}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+
+    /* products */
+    .products{margin-top:26px}
+    .product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .product{background:var(--card);padding:12px;border-radius:10px;border:1px solid rgba(15,23,42,.04);display:flex;flex-direction:column}
+    .prod-img{height:160px;border-radius:8px;background:linear-gradient(180deg,#f0f6ff,#ffffff);display:flex;align-items:center;justify-content:center; font-weight:700;color:var(--muted)}
+    .prod-body{padding:12px 0;flex:1}
+    .price{font-weight:700;color:var(--accent)}
+
+    /* responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .product-grid{grid-template-columns:repeat(2,1fr)}
+      .grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width:560px){
+      .product-grid{grid-template-columns:1fr}
+      header{padding:20px}
+      .logo{width:48px;height:48px}
+      h1{font-size:20px}
+    }
+
+    footer{padding:28px 0;color:var(--muted)}
+    .row{display:flex;gap:18px;align-items:center}
+    .tags{display:flex;gap:8px;flex-wrap:wrap}
+    .tag{background:#eef2ff;padding:6px 10px;border-radius:999px;font-size:13px;color:var(--accent);}
+
+    /* small helper */
+    .muted{color:var(--muted);font-size:14px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div class="logo">BP</div>
+        <div>
+          <h1>Boutique Peinture — Présentation</h1>
+          <p class="lead">Solutions de peinture bâtiment — produits, services et conseils pro pour vos chantiers.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <div class="card">
+          <h2>Qui sommes-nous ?</h2>
+          <p class="muted">Boutique Peinture est un magasin en ligne spécialisé dans la vente de peintures pour bâtiments — intérieures et extérieures —, finitions, vernis et accessoires. Nous fournissons des produits adaptés aux particuliers, artisans et entreprises.</p>
+
+          <div class="features">
+            <div class="feature">
+              <strong>Marques reconnues</strong>
+              <div class="muted">Qualité garantie</div>
+            </div>
+            <div class="feature">
+              <strong>Livraison rapide</strong>
+              <div class="muted">En 48-72h selon la zone</div>
+            </div>
+            <div class="feature">
+              <strong>Conseils pro</strong>
+              <div class="muted">Fiche produit + chat</div>
+            </div>
+          </div>
+
+          <div class="grid">
+            <div class="card">
+              <h4>Peinture intérieure</h4>
+              <p class="muted">Peintures lessivables, finition mate ou satinée, parfaites pour salons et chambres.</p>
+            </div>
+            <div class="card">
+              <h4>Peinture extérieure</h4>
+              <p class="muted">Formulations anti-UV et anti-moisissure pour façades durables.</p>
+            </div>
+            <div class="card">
+              <h4>Accessoires</h4>
+              <p class="muted">Pinceaux, rouleaux, ruban de masquage, enduits.</p>
+            </div>
+          </div>
+
+          <div class="cta">
+            <a class="btn" href="#produits">Voir les produits</a>
+            <a class="btn ghost" href="#contact">Contactez-nous</a>
+          </div>
+        </div>
+      </div>
+
+      <aside>
+        <div class="card">
+          <h3>Nos chiffres clés</h3>
+          <ul class="muted">
+            <li>+ 3,000 clients satisfaits</li>
+            <li>+ 120 références en stock</li>
+            <li>Livraison dans tout le pays</li>
+          </ul>
+
+          <div style="margin-top:14px">
+            <h4>Promotions</h4>
+            <p class="muted">-15% sur les peintures intérieures ce mois-ci.</p>
+            <div style="margin-top:10px" class="tags">
+              <span class="tag">Peinture intérieure</span>
+              <span class="tag">Peinture extérieure</span>
+              <span class="tag">Accessoires</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="produits" class="products">
+      <h2>Produits phares</h2>
+      <p class="muted">Exemples de produits disponibles sur la boutique.</p>
+
+      <div class="product-grid">
+        <article class="product">
+          <div class="prod-img">Peinture Mate 5L</div>
+          <div class="prod-body">
+            <h3>Peinture Mate Premium — 5L</h3>
+            <p class="muted">Couverture élevée, finition mate, idéale pour les murs intérieurs.</p>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="price">15 000 FCFA</div>
+            <a class="btn" href="#">Ajouter</a>
+          </div>
+        </article>
+
+        <article class="product">
+          <div class="prod-img">Peinture Ext 10L</div>
+          <div class="prod-body">
+            <h3>Peinture Extérieure Ultra — 10L</h3>
+            <p class="muted">Résistante aux intempéries et aux UV, finition satinée.</p>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="price">28 500 FCFA</div>
+            <a class="btn" href="#">Ajouter</a>
+          </div>
+        </article>
+
+        <article class="product">
+          <div class="prod-img">Vernis 1L</div>
+          <div class="prod-body">
+            <h3>Vernis Protect — 1L</h3>
+            <p class="muted">Finition protectrice pour bois et métaux.</p>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="price">7 200 FCFA</div>
+            <a class="btn" href="#">Ajouter</a>
+          </div>
+        </article>
+      </div>
+
+      <div style="margin-top:16px" class="card">
+        <h3>Services complémentaires</h3>
+        <p class="muted">Devis gratuit, calcul de quantité (m² → litres), conseils de préparation de surfaces, et formation pour artisans.</p>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:28px">
+      <div class="card">
+        <h2>Contact & Localisation</h2>
+        <p class="muted">Adresse : Rue des Peintres, Abidjan — Tél : +225 00 00 00 00</p>
+        <p class="muted">Service client : contact@boutiquepeinture.example</p>
+
+        <div style="margin-top:12px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn" href="mailto:contact@boutiquepeinture.example">Envoyer un mail</a>
+          <a class="btn ghost" href="#">Demander un devis</a>
+        </div>
+      </div>
+    </section>
+
+    <footer style="margin-top:28px">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+          <div>
+            <strong>Boutique Peinture</strong>
+            <div class="muted">© 2025 • Tous droits réservés</div>
+          </div>
+          <div class="muted">Conçu pour présenter une boutique de vente de peinture bâtiment.</div>
+        </div>
+      </div>
+    </footer>
+  </main>
+</body>
+</html>

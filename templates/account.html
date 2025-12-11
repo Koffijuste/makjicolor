@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Mon Compte | BOKOMA-STOR{% endblock %}
+{% block content %}
+
+<div class="container account-page" style="background-image: url('{{ url_for('static', filename='img/vue-de-dessus-sur-pot-de-peinture.jpg') }}'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; width: 100%;">
+  <h1><i class="fas fa-user-circle"></i> Mon Compte</h1>
+
+  <div class="account-info-card">
+    <h2>Vos informations</h2>
+    <p><strong>Nom :</strong> {{ user.username }}</p>
+    <p><strong>Email :</strong> {{ user.email }}</p>
+    <p><strong>Téléphone :</strong> {{ user.phone or 'Non renseigné' }}</p>
+  </div>
+
+  <div class="account-actions">
+    <h2>Continuer vos achats</h2>
+    <div class="account-buttons">
+      <a href="{{ url_for('main.panier') }}" class="btn">
+        <i class="fas fa-shopping-cart"></i> Voir mon panier
+      </a>
+      <a href="{{ url_for('main.produits') }}" class="btn btn-outline">
+        <i class="fas fa-store"></i> Boutique
+      </a>
+      <!-- Option future -->
+      <!-- <a href="#" class="btn btn-outline"><i class="fas fa-history"></i> Mes commandes</a> -->
+    </div>
+  </div>
+
+  <div class="account-footer">
+    <a href="{{ url_for('main.logout') }}" class="btn-logout">
+      <i class="fas fa-sign-out-alt"></i> Déconnexion
+    </a>
+  </div>
+</div>
+
+<style>
+.account-page {
+  padding: 60px 0;
+}
+.account-page h1 {
+  margin-bottom: 2rem;
+  font-family: 'Playfair Display', serif;
+}
+.account-info-card {
+  background: var(--bg-card);
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  margin-bottom: 2rem;
+}
+.account-info-card h2 {
+  margin-bottom: 16px;
+  color: var(--primary);
+}
+.account-info-card p {
+  margin-bottom: 8px;
+  color: var(--text-light);
+}
+.account-actions h2 {
+  margin: 2rem 0 1.5rem;
+}
+.account-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.account-buttons .btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.account-footer {
+  margin-top: 2rem;
+  text-align: center;
+}
+.btn-logout {
+  color: #e74c3c;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-logout:hover {
+  text-decoration: underline;
+}
+</style>
+
+{% endblock %}

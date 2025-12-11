@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Mentions Légales | MAKJICOLOR{% endblock %}
+{% block content %}
+<div class="legal-page"  style="background-image: url('{{ url_for('static', filename='img/pexels-shkrabaanthony-5493653.jpg') }}'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; width: 100%;">
+  <div class="container">
+    <h1>Mentions Légales</h1>
+
+    <h2>Éditeur du site</h2>
+    <p><strong>ArtÉclat</strong><br>
+    SAS au capital de 5 000 €<br>
+    Siège social : 24 Rue des Artistes, 75018 Paris<br>
+    RCS Paris : 890 123 456<br>
+    N° TVA intracommunautaire : FR12 890123456</p>
+
+    <h2>Directeur de la publication</h2>
+    <p>Clara Moreau — contact@artéclat.com</p>
+
+    <h2>Hébergeur</h2>
+    <p>Render Inc.<br>
+    405 Howard St, San Francisco, CA 94105, États-Unis</p>
+
+    <h2>Propriété intellectuelle</h2>
+    <p>Tous les contenus du site (textes, images, logos, œuvres) sont la propriété exclusive d’ArtÉclat ou de ses artistes partenaires. Toute reproduction, distribution ou utilisation sans autorisation expresse est strictement interdite.</p>
+
+    <h2>Crédits</h2>
+    <p>Photos d’ambiance : Unsplash<br>
+    Développement : ArtÉclat</p>
+  </div>
+</div>
+{% endblock %}
+
+<style>
+.legal-page {
+  padding: 80px 0 60px;
+  line-height: 1.8;
+}
+.legal-page h2 {
+  margin: 2rem 0 1rem;
+  font-size: 1.6rem;
+  color: var(--text);
+}
+.legal-page p {
+  margin-bottom: 1.2rem;
+  color: var(--text-light);
+}
+</style>

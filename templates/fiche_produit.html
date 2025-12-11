@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+{% block title %}{{ produit.nom }} | MAKJICOLOR{% endblock %}
+{% block content %}
+
+<div class="container fiche-produit">
+  <div class="product-detail-grid">
+    <!-- Image produit -->
+    <div class="product-image">
+      <img src="{{ produit.image_url if produit.image_url.startswith(('http://', 'https://')) else url_for('static', filename=produit.image_url or 'img/Cover-Peinture.jpg') }}" style="height: 100%;"
+           alt="{{ produit.nom }}"
+           onerror="this.src='{{ url_for('static', filename='img/Cover-Peinture.jpg') }}'">
+    </div>
+
+    <!-- Informations produit -->
+    <div class="product-info">
+      <div class="product-breadcrumb">
+        <a href="{{ url_for('main.produits') }}">Boutique</a> &gt; {{ produit.categorie }}
+      </div>
+
+      <h1>{{ produit.nom }}</h1>
+      
+      <div class="product-rating">
+        <span>★★★★★</span>
+        <span class="rating-count">(12 avis)</span>
+      </div>
+
+      <p class="price">{{ "{:,.0f}".format(produit.prix) }} <span>FCFA</span></p>
+
+      <div class="product-meta">
+        <div class="meta-item">
+          <i class="fas fa-tag"></i>
+          <span>{{ produit.categorie }}</span>
+        </div>
+        <div class="meta-item">
+          <i class="fas fa-ruler-combined"></i>
+          <span>{{ produit.dimensions }}</span>
+        </div>
+        <div class="meta-item">
+          <i class="fas fa-cube"></i>
+          <span>{{ produit.materiau }}</span>
+        </div>
+      </div>
+
+      <div class="product-description">
+        <h3>Description</h3>
+        <p>{{ produit.description }}</p>
+      </div>
+
+      <!-- Formulaire d'ajout au panier -->
+      <form method="POST" action="{{ url_for('main.ajouter_panier') }}" class="add-to-cart-form">
+        <input type="hidden" name="produit_id" value="{{ produit.id }}">
+        <button type="submit" class="btn btn-primary btn-add-to-cart">
+          <i class="fas fa-cart-plus"></i> Ajouter au panier
+        </button>
+      </form>
+
+      <div class="product-actions">
+        <a href="{{ url_for('main.produits') }}" class="btn-link">
+          <i class="fas fa-arrow-left"></i> Retour à la boutique
+        </a>
+        <a href="https://wa.me/2250711066021" class="btn-link" target="_blank">
+          <i class="fab fa-whatsapp"></i> Besoin d’aide ?
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.fiche-produit {
+  padding: 70px 0 50px;
+}
+.product-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+.product-image {
+  position: sticky;
+  top: 20px;
+}
+.product-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+.product-image img:hover {
+  transform: scale(1.02);
+}
+
+/* Informations produit */
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+.product-breadcrumb {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-bottom: 1.2rem;
+}
+.product-breadcrumb a {
+  color: var(--primary);
+  text-decoration: none;
+}
+.product-breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+.product-info h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+  color: var(--text);
+}
+.product-rating {
+  margin-bottom: 1rem;
+  color: #ffb400;
+  font-size: 1rem;
+}
+.rating-count {
+  color: var(--text-light);
+  margin-left: 8px;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 1rem 0;
+}
+.price span {
+  font-size: 1.2rem;
+  color: var(--text-light);
+}
+
+/* Métadonnées avec icônes */
+.product-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin: 1.8rem 0;
+  padding: 18px;
+  background: rgba(212, 175, 55, 0.05);
+  border-radius: 12px;
+}
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+}
+.meta-item i {
+  color: var(--primary);
+  width: 20px;
+  text-align: center;
+}
+
+/* Description */
+.product-description h3 {
+  font-size: 1.3rem;
+  margin: 1.8rem 0 1rem;
+  color: var(--text);
+}
+.product-description p {
+  line-height: 1.7;
+  color: var(--text-light);
+}
+
+/* Bouton principal */
+.btn-add-to-cart {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.btn-add-to-cart:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+}
+
+/* Actions secondaires */
+.product-actions {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+.btn-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-link:hover {
+  text-decoration: underline;
+}
+
+/* Dark mode */
+[data-theme="dark"] .product-meta {
+  background: rgba(255, 235, 59, 0.07);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .product-detail-grid {
+    gap: 2.5rem;
+  }
+  .product-info h1 {
+    font-size: 2.1rem;
+  }
+}
+@media (max-width: 768px) {
+  .fiche-produit {
+    padding: 50px 0 30px;
+  }
+  .product-detail-grid {
+    grid-template-columns: 1fr;
+  }
+  .product-image {
+    position: static;
+  }
+  .product-image img {
+    border-radius: 12px;
+  }
+  .product-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .product-actions {
+    flex-direction: column;
+  }
+}
+</style>
+
+{% endblock %}

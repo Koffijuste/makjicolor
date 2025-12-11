@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% block title %}Portail | MAKJICOLOR{% endblock %}
+{% block content %}
+
+<!-- Diaporama professionnel -->
+<section class="hero-carousel" >
+  <div class="carousel-container" id="carousel">
+    <div class="carousel-slide active">
+      <img src="{{ url_for('static', filename='img/pexels-blue-bird-7218009.jpg') }}" alt="Peinture Intérieure">
+      <div class="carousel-overlay">
+        <h2>Peinture Intérieure Premium</h2>
+        <p>Finitions mates, satinées ou brillantes — pour des intérieurs parfaits.</p>
+        <a href="{{ url_for('main.produits', categorie='interieur') }}" class="btn carousel-btn">Découvrir</a>
+      </div>
+    </div>
+    <div class="carousel-slide">
+      <img src="{{ url_for('static', filename='img/WhatsApp Image 2025-12-04 à 19.26.07_5d0771d2.jpg') }}" alt="Peinture Extérieure">
+      <div class="carousel-overlay">
+        <h2>Peinture Extérieure Résistante</h2>
+        <p>Anti-UV, anti-moisissure, conçue pour le climat ivoirien.</p>
+        <a href="{{ url_for('main.produits', categorie='exterieur') }}" class="btn carousel-btn">Découvrir</a>
+      </div>
+    </div>
+    <div class="carousel-slide">
+      <img src="{{ url_for('static', filename='img/personnes-renovant-la-maison.jpg') }}" alt="Prestations">
+      <div class="carousel-overlay">
+        <h2>Prestations Clé en Main</h2>
+        <p>Peinture bâtiment, enduits décoratifs, pose de papiers peints.</p>
+        <a href="{{ url_for('main.prestations') }}" class="btn carousel-btn">Nos services</a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Contrôles du diaporama -->
+  <button class="carousel-btn-prev" id="prev"> <i class="fas fa-chevron-left"></i></button>
+  <button class="carousel-btn-next" id="next"> <i class="fas fa-chevron-right"></i></button>
+  
+  <!-- Indicateurs -->
+  <div class="carousel-dots" id="dots"><i class="fas fa-circle"></i></div>
+</section>
+
+<!-- Section : Pourquoi nous choisir -->
+<section class="features-section" style="background-image: url('{{ url_for('static', filename='img/decoration1.jpg') }}'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; width: 100%;">
+  <div class="container">
+    <h2>Pourquoi choisir MAKJICOLOR ?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-award"></i></div>
+        <h3>Produits Certifiés</h3>
+        <p>Peintures conformes aux normes internationales, sans COV nocifs.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-truck-fast"></i></div>
+        <h3>Livraison Express</h3>
+        <p>À Abidjan en 24-48h, avec suivi en temps réel.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-hard-hat"></i></div>
+        <h3>Artisans Expérimentés</h3>
+        <p>Équipe qualifiée pour des finitions impeccables.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section : Nos Univers -->
+<section class="univers-section" style="background-image: url('{{ url_for('static', filename='img/decoration1.jpg') }}'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; width: 100%;">
+  <div class="container">
+    <h2>Nos Univers</h2>
+    <div class="univers-grid">
+      <div class="univers-item">
+        <img src="{{ url_for('static', filename='img/Eurocolor.jpg') }}" alt="Intérieur">
+        <h3>Intérieur</h3>
+        <p>Peintures à eau et à huile pour murs, plafonds, boiseries.</p>
+        <a href="{{ url_for('main.produits', categorie='interieur') }}" class="univers-link">Voir les produits → <i class="fas fa-paint-roller"></i></a>
+      </div>
+      <div class="univers-item">
+        <img src="{{ url_for('static', filename='img/primacolor.jpg') }}" alt="Extérieur">
+        <h3>Extérieur</h3>
+        <p>Peintures étanches, anti-UV, pour façades et structures.</p>
+        <a href="{{ url_for('main.produits', categorie='exterieur') }}" class="univers-link">Voir les produits → <i class="fas fa-paint-roller"></i></a>
+      </div>
+      <div class="univers-item">
+        <img src="{{ url_for('static', filename='img/materiels.jpg') }}" alt="Accessoires">
+        <h3>Accessoires</h3>
+        <p>Rouleaux, pinceaux, bâches, rubans de masquage.</p>
+        <a href="{{ url_for('main.produits', categorie='accessoires') }}" class="univers-link">Voir les produits → <i class="fas fa-paint-roller"></i></a>
+      </div>
+      <div class="univers-item">
+        <img src="{{ url_for('static', filename='img/hero2.jpg') }}" alt="Prestations">
+        <h3>Prestations</h3>
+        <p>Peinture bâtiment, enduits décoratifs, pose de papiers peints.</p>
+        <a href="{{ url_for('main.prestations') }}" class="univers-link">Découvrir → <i class="fas fa-paint-roller"></i></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section CTA finale -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Prêt à transformer vos espaces ?</h2>
+    <p>Produits professionnels ou intervention clé en main — nous avons la solution.</p>
+    <div class="cta-buttons">
+      <a href="{{ url_for('main.produits') }}" class="btn">Acheter en ligne</a>
+      <a href="{{ url_for('main.contact') }}" class="btn-outline">Demander un devis</a>
+    </div>
+  </div>
+</section>
+
+<!-- Script du diaporama -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const carousel = document.getElementById('carousel');
+  if (!carousel) return; // Ne rien faire si pas de carrousel sur la page
+
+  const slides = carousel.querySelectorAll('.carousel-slide');
+  const dotsContainer = document.getElementById('dots');
+  const btnPrev = document.getElementById('prev');
+  const btnNext = document.getElementById('next');
+  
+  if (slides.length === 0) return;
+
+  let currentSlide = 0;
+  let autoSlideInterval;
+
+  // Créer les indicateurs (dots)
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.addEventListener('click', () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+  updateDots();
+
+  // Navigation
+  if (btnPrev) btnPrev.addEventListener('click', () => goToSlide(currentSlide - 1));
+  if (btnNext) btnNext.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+  // Démarrer le défilement automatique
+  startAutoSlide();
+
+  function goToSlide(index) {
+    // Gérer le bouclage
+    if (index >= slides.length) index = 0;
+    if (index < 0) index = slides.length - 1;
+    
+    // Masquer tous les slides
+    slides.forEach(slide => slide.classList.remove('active'));
+    
+    // Afficher le slide cible
+    slides[index].classList.add('active');
+    currentSlide = index;
+    
+    updateDots();
+    
+    // Réinitialiser le timer auto
+    resetAutoSlide();
+  }
+
+  function updateDots() {
+    const dots = dotsContainer.querySelectorAll('span');
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentSlide);
+    });
+  }
+
+  function startAutoSlide() {
+    autoSlideInterval = setInterval(() => {
+      goToSlide(currentSlide + 1);
+    }, 6000);
+  }
+
+  function resetAutoSlide() {
+    clearInterval(autoSlideInterval);
+    startAutoSlide();
+  }
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}MAKJICOLOR{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Font Awesome 6 (Free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="icon" type="img/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon-32.png') }}">
+  <link rel="icon" type="img/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon-16.png') }}">
+  <link rel="icon" type="img/png" sizes="192x192" href="{{ url_for('static', filename='img/favicon-192.png') }}">
+  <link rel="icon" type="img/png" sizes="512x512" href="{{ url_for('static', filename='img/favicon-512.png') }}">
+</head>
+<body class="{{ page_class or '' }}">
+
+  <header class="header">
+  <div class="container">
+    <div class="header-left">
+      <a href="{{ url_for('main.portail') }}" class="logo"><img src="{{url_for('static', filename='img/logo.jpg')}}" alt="Logo_MAKJICOLOR" style="width: auto; height: 70px; border-radius: 20%;"></a>
+      
+      <!-- Barre de recherche (visible sur desktop) -->
+      <form method="GET" action="{{ url_for('main.recherche') }}" class="search-form">
+        <input type="text" name="q" placeholder="Rechercher un produit..." aria-label="Rechercher">
+        <button type="submit" aria-label="Rechercher">🔍</button>
+      </form>
+    </div>
+
+    <!-- Navigation + Panier (desktop) -->
+    <nav class="nav" id="main-nav">
+      <ul>
+        <li><a href="{{ url_for('main.portail') }}"><i class="fas fa-home"></i> Portail</a></li>
+        <li><a href="{{ url_for('main.produits') }}"> <i class="fas fa-paint-roller"></i> Produits</a></li>
+        <li><a href="{{ url_for('main.prestations') }}"> <i class="fas fa-briefcase"></i> Prestations</a></li>
+        <li><a href="{{ url_for('main.contact') }}"> <i class="fas fa-envelope"></i> Contact</a></li>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('main.account') }}" title="Mon Compte">
+          <i class="fas fa-user"></i>
+        </a>
+        <a href="{{ url_for('main.logout') }}"> Déconnexion</a>
+        {% else %}
+        <a href="{{ url_for('main.login') }}"> <i class="fas fa-sign-in-alt"></i> Connexion</a>
+        {% endif %}
+      </ul>
+    </nav>
+
+    <!-- Panier + Menu mobile -->
+    <div class="header-right">
+      <a href="{{ url_for('main.panier') }}" class="btn-cart" aria-label="Panier">
+        <span class="cart-count">{{ nb_articles }}</span> <i class="fas fa-shopping-cart"></i>
+      </a>
+      
+      <!-- Barre de recherche (mobile) -->
+      <button class="search-toggle" id="search-toggle" aria-label="Rechercher"><i class="fas fa-search"></i></button>
+      
+      <!-- Bouton hamburger (mobile) -->
+      <button class="menu-toggle" id="menu-toggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+
+  <!-- Barre de recherche mobile (cachée par défaut) -->
+  <div class="mobile-search" id="mobile-search">
+    <form method="GET" action="{{ url_for('main.recherche') }}">
+      <input type="text" name="q" placeholder="Rechercher..." aria-label="Rechercher">
+      <button type="submit">Rechercher</button>
+    </form>
+  </div>
+</header>
+  
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="flash {{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer" style="background: linear-gradient(90deg, hsla(279, 44%, 8%, 1) 0%, hsla(340, 14%, 13%, 1) 13%, hsla(16, 15%, 15%, 1) 18%, hsla(60, 20%, 1%, 1) 72%);">
+  <div class="container" style="color: white;">
+    <div class="footer-grid" >
+      <!-- Colonne 1 : Logo & description -->
+      <div class="footer-col">
+        <a href="{{ url_for('main.portail') }}" class="footer-logo" style="color: white;">MAKJICOLOR</a>
+        <p class="footer-slogan">La maison de la peinture et de la décoration.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="Facebook" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" aria-label="TikTok" class="social-link"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="#" aria-label="Snapchat" class="social-link"><i class="fa-brands fa-snapchat"></i></a>
+        </div>
+      </div>
+
+      <!-- Colonne 2 : Liens rapides -->
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="{{ url_for('main.portail') }}">Accueil</a></li>
+          <li><a href="{{ url_for('main.histoire') }}">Notre Histoire</a></li>
+          <li><a href="{{ url_for('main.contact') }}">Contact</a></li>
+          {% if not utilisateur %}
+            <li><a href="{{ url_for('main.login') }}">Connexion</a></li>
+            <li><a href="{{ url_for('main.register') }}">Inscription</a></li>
+          {% endif %}
+        </ul>
+      </div>
+
+      <!-- Colonne 3 : Légal -->
+      <div class="footer-col">
+        <h4>Informations</h4>
+        <ul class="footer-links">
+          <li><a href="{{ url_for('main.mentions_legales') }}">Mentions légales</a></li>
+          <li><a href="{{ url_for('main.politique_confidentialite') }}">Politique de confidentialité</a></li>
+          <li><a href="{{ url_for('main.conditions_vente') }}">Conditions de vente</a></li>
+          <li><a href="{{ url_for('main.support_client') }}">Support client</a></li>
+        </ul>
+      </div>
+
+      <!-- Colonne 4 : Contact -->
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <address>
+          Cocody Avenue Kone Tiemoko Meylie<br>
+          Abidjan, Côte d'Ivoire<br>
+          <i class="fas fa-envelope"></i> contact@makjicolor.com<br>
+          <i class="fas fa-phone"></i> +225 07 11 06 60 21
+        </address>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; {{ now.year }} MAKJICOLOR. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>
+  {% if dark_mode %}
+  <script>
+    document.documentElement.setAttribute('data-theme', 'dark');
+  </script>
+{% endif %}
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+  <script>
+  // Toggle menu mobile
+  document.getElementById('menu-toggle')?.addEventListener('click', () => {
+    document.querySelector('.nav').classList.toggle('active');
+    document.getElementById('mobile-search')?.classList.remove('active');
+  });
+
+  // Toggle recherche mobile
+  document.getElementById('search-toggle')?.addEventListener('click', () => {
+    const mobileSearch = document.getElementById('mobile-search');
+    mobileSearch.classList.toggle('active');
+    if (mobileSearch.classList.contains('active')) {
+      document.querySelector('.nav').classList.remove('active');
+    }
+  });
+
+  // Fermer les menus si on clique ailleurs
+  document.addEventListener('click', (e) => {
+    const isNav = e.target.closest('.nav') || e.target.closest('#menu-toggle');
+    const isSearch = e.target.closest('.mobile-search') || e.target.closest('#search-toggle');
+    
+    if (!isNav) {
+      document.querySelector('.nav')?.classList.remove('active');
+    }
+    if (!isSearch) {
+      document.getElementById('mobile-search')?.classList.remove('active');
+    }
+  });
+</script>
+<script>
+document.querySelectorAll('.add-to-cart-form').forEach(form => {
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'  // Pour identifier les requêtes JS
+      }
+    });
+    
+    if (res.ok) {
+      // Optionnel : mise à jour du compteur panier
+      const countEl = document.querySelector('.cart-count');
+      if (countEl) {
+        countEl.textContent = parseInt(countEl.textContent) + 1;
+      }
+      alert('✅ Produit ajouté au panier !');
+    } else {
+      alert('❌ Erreur lors de l’ajout.');
+    }
+  });
+});
+</script>
+</body>
+</html>

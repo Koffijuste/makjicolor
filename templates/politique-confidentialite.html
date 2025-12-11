@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Politique de Confidentialité | MAKJICOLOR{% endblock %}
+{% block content %}
+<div class="legal-page" style="background-image: url('{{ url_for('static', filename='img/pexels-shkrabaanthony-5493653.jpg') }}'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; width: 100%;">
+  <div class="container">
+    <h1>Politique de Confidentialité</h1>
+
+    <p>Dernière mise à jour : {{ now().strftime('%d %B %Y') }}</p>
+
+    <h2>1. Données collectées</h2>
+    <p>Lors de votre navigation ou achat sur ArtÉclat, nous collectons :</p>
+    <ul>
+      <li>Votre nom, email et mot de passe (à l’inscription)</li>
+      <li>Votre panier et historique de commandes</li>
+      <li>Données de navigation (cookies – voir ci-dessous)</li>
+    </ul>
+
+    <h2>2. Finalité</h2>
+    <p>Vos données sont utilisées pour :</p>
+    <ul>
+      <li>Traiter vos commandes</li>
+      <li>Vous contacter en cas de besoin (livraison, support)</li>
+      <li>Améliorer l’expérience utilisateur</li>
+    </ul>
+
+    <h2>3. Partage des données</h2>
+    <p>Nous ne vendons ni ne partageons vos données personnelles avec des tiers, sauf :</p>
+    <ul>
+      <li>Transporteur : pour la livraison</li>
+      <li>WhatsApp : uniquement les données nécessaires à la commande (nom, œuvres, total)</li>
+    </ul>
+
+    <h2>4. Cookies</h2>
+    <p>Notre site utilise des cookies techniques essentiels au fonctionnement (panier, session). Nous n’utilisons pas de cookies de publicité ou de tracking tiers.</p>
+
+    <h2>5. Vos droits</h2>
+    <p>Conformément au RGPD, vous disposez d’un droit d’accès, de rectification, de suppression et de portabilité de vos données. Contactez-nous à : contact@artéclat.com</p>
+  </div>
+</div>
+{% endblock %}

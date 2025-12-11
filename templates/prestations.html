@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}Nos Prestations | MAKJICOLOR{% endblock %}
+{% block content %}
+
+<div class="prestations-page" style="background-image: url('{{ url_for('static', filename='img/decoration1.jpg') }}'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; width: 100%;">
+  <div class="container">
+    <div class="prestations-hero">
+      <h1>Nos Prestations Professionnelles</h1>
+      <p class="subtitle">Confiez-nous la transformation de vos espaces avec notre expertise artisanale et notre savoir-faire.</p>
+    </div>
+
+    <div class="prestations-grid">
+      <!-- 1. Peinture Bâtiment -->
+      <div class="prestation-card">
+        <div class="prestation-image">
+          <img src="{{ url_for('static', filename='img/peinture_batiment.jpg') }}" 
+               alt="Peinture Bâtiment">
+        </div>
+        <div class="prestation-content">
+          <h2><i class="fas fa-home"></i> Peinture Bâtiment</h2>
+          <p class="prestation-category">Intérieur & Extérieur</p>
+          <p>Nous prenons en charge la peinture complète de maisons, bureaux, immeubles et établissements publics. Travail soigné, protection des sols et finitions impeccables.</p>
+          <ul class="prestation-features">
+            <li>Préparation des supports (ponçage, rebouchage)</li>
+            <li>Application de 2 à 3 couches</li>
+            <li>Nettoyage final du chantier</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 2. Enduits Décoratifs -->
+      <div class="prestation-card">
+        <div class="prestation-image">
+          <img src="{{ url_for('static', filename='img/decoratif.jpg') }}" 
+               alt="Enduits Décoratifs">
+        </div>
+        <div class="prestation-content">
+          <h2><i class="fas fa-swatchbook"></i> Enduits Décoratifs</h2>
+          <p class="prestation-category">Effets Artisanaux</p>
+          <p>Donnez du caractère à vos murs avec nos enduits haut de gamme : stuc, tadelakt, chaux, béton ciré ou effet velours.</p>
+          <ul class="prestation-features">
+            <li>Conseil sur le choix de l’effet</li>
+            <li>Application en plusieurs phases</li>
+            <li>Résultat unique et personnalisé</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 3. Pose de Papiers Peints -->
+      <div class="prestation-card">
+        <div class="prestation-image">
+          <img src="{{ url_for('static', filename='img/papier_peint.jpg') }}" 
+               alt="Pose de Papiers Peints">
+        </div>
+        <div class="prestation-content">
+          <h2><i class="fas fa-wallpaper"></i> Pose de Papiers Peints</h2>
+          <p class="prestation-category">Classique & Intissé</p>
+          <p>Installation précise et sans bulle de tous types de papiers peints : vinyles, non-tissés, texturés ou à motifs complexes.</p>
+          <ul class="prestation-features">
+            <li>Préparation des murs</li>
+            <li>Découpe et raccord parfait</li>
+            <li>Nettoyage des surplus de colle</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 4. Peintures Décoratives -->
+      <div class="prestation-card">
+        <div class="prestation-image">
+          <img src="{{ url_for('static', filename='img/WhatsApp Image 2025-12-04 à 19.26.06_c2c256f8.jpg') }}" 
+               alt="Peintures Décoratives">
+        </div>
+        <div class="prestation-content">
+          <h2><i class="fas fa-paint-roller"></i> Peintures Décoratives</h2>
+          <p class="prestation-category">Effets Spéciaux</p>
+          <p>Création d’ambiances uniques : trompe-l’œil, faux bois, patines vieillies, fresques murales ou ciels étoilés.</p>
+          <ul class="prestation-features">
+            <li>Étude du projet avec le client</li>
+            <li>Maquettage préalable (option)</li>
+            <li>Exécution par artiste peintre</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="prestation-card">
+        <div class="prestation-image">
+          <img src="{{ url_for('static', filename='img/materiels.jpg') }}" 
+               alt="Peintures Décoratives">
+        </div>
+        <div class="prestation-content">
+          <h2><i class="fas fa-paint-roller"></i> Outils de peintures</h2>
+          <p class="prestation-category">Meilleurs Matériaux</p>
+          <p>Pour une peinture qui révèle des valeurs ou émotions, utilisez nos outils de qualité supérieure.</p>
+          <ul class="prestation-features">
+            <li>Rouleau à peinture (peau de mouton, microfibre, selon surface)</li>
+            <li>Manche télescopique (peindre en hauteur sans échelle)</li>
+            <li>Pinceaux :
+              Pinceau plat
+              Pinceau rond
+              Pinceau à rechampir (pour les coins et angles)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="devis-section">
+      <h2>Prêt à démarrer votre projet ?</h2>
+      <p>Nous intervenons partout à Abidjan, avec ou sans fourniture de matériel.</p>
+      <div class="devis-buttons">
+        <a href="{{ url_for('main.contact') }}" class="btn">Demander un devis gratuit</a>
+        <a href="https://wa.me/2250711066021" class="btn-outline">Discuter sur WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

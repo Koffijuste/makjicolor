@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block title %}Contact | MAKJICOLOR{% endblock %}
+{% block content %}
+
+<div class="contact-page"  style="background-image: url('{{ url_for('static', filename='img/pexels-shkrabaanthony-5493653.jpg') }}'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; width: 100%;">
+  <div class="container">
+    <div class="contact-hero">
+      <h1>Nous Contacter</h1>
+      <p class="subtitle">Une question sur nos produits, nos prestations ou un devis personnalisé ?  
+         Notre équipe vous répond sous 24h.</p>
+    </div>
+
+    <div class="contact-grid" >
+      <!-- Formulaire -->
+      <div class="contact-form-card">
+        <form id="contact-form" method="POST" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nom">Nom complet *</label>
+              <input type="text" id="nom" name="nom" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="sujet">Sujet</label>
+            <select id="sujet" name="sujet">
+              <option value="">Choisir une option</option>
+              <option value="devis">Demande de devis</option>
+              <option value="produit">Question sur un produit</option>
+              <option value="prestation">Information sur une prestation</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" rows="5" required 
+                      placeholder="Décrivez-nous votre projet, votre chantier ou votre besoin..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Envoyer le message</button>
+        </form>
+      </div>
+
+      <!-- Informations -->
+      <div class="contact-info">
+        <div class="info-card">
+          <div class="info-icon">📍</div>
+          <div>
+            <h3>Notre Adresse</h3>
+            <address>
+              Cocody Avenue Kone Tiemoko Meylie<br>
+              Abidjan, Côte d'Ivoire
+            </address>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">✉️</div>
+          <div>
+            <h3>Email</h3>
+            <p><a href="mailto:contact@makjicolor.com">contact@makjicolor.com</a></p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">📱</div>
+          <div>
+            <h3>Téléphone</h3>
+            <p><a href="tel:+2250711066021">+225 07 11 06 60 21</a></p>
+            <p class="info-note">Disponible du lundi au samedi, 8h – 18h</p>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">🕒</div>
+          <div>
+            <h3>Heures d’ouverture</h3>
+            <p>Lundi – Samedi : 8h – 18h<br>
+               Dimanche : Fermé</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Feedback simple (remplace par du backend Flask plus tard)
+  document.getElementById('contact-form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const nom = document.getElementById('nom').value;
+    alert(`✅ Merci ${nom} !\nVotre message a été envoyé. Nous vous répondrons sous 24h.`);
+    this.reset();
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Nos Produits | MAKJICOLOR{% endblock %}
+{% block content %}
+
+<div class="products-container" style="background-image: url('{{ url_for('static', filename='img/pexels-shkrabaanthony-5493653.jpg') }}'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; width: 100%;">
+  <div class="container">
+    <h1 class="page-title">Notre Collection de Produits</h1>
+    <p class="page-subtitle">Des solutions professionnelles pour tous vos chantiers — intérieur, extérieur et finitions.</p>
+
+    <!-- Barre de filtres -->
+    <div class="filter-bar">
+      <a href="{{ url_for('main.produits', categorie='interieur') }}" class="filter-btn {% if categorie_active == 'interieur' %}active{% endif %}">intérieur</a>
+      <a href="{{ url_for('main.produits', categorie='exterieur') }}" class="filter-btn {% if categorie_active == 'exterieur' %}active{% endif %}">extérieur</a>
+      <a href="{{ url_for('main.produits', categorie='accessoires') }}" class="filter-btn {% if categorie_active == 'accessoires' %}active{% endif %}">accessoires</a>
+      <a href="{{ url_for('main.produits', categorie='vernis') }}" class="filter-btn {% if categorie_active == 'vernis' %}active{% endif %}">vernis & finitions</a>
+      <a href="{{ url_for('main.produits') }}" class="filter-btn reset {% if not categorie_active %}active{% endif %}">tous les produits</a>
+    </div>
+
+    {% if produits %}
+      <div class="product-grid">
+        {% for p in produits %}
+        <div class="product-card">
+          <div class="product-image">
+            <img src="{{ p.image_url if p.image_url and p.image_url.startswith(('http://', 'https://')) else url_for('static', filename=p.image_url or 'img/Cover-Peinture.jpg') }}"
+                 alt="{{ p.nom }}"
+                 onerror="this.onerror=null; this.src='{{ url_for('static', filename='img/Cover-Peinture.jpg') }}';">
+          </div>
+          <div class="product-info">
+            <h3>{{ p.nom }}</h3>
+            <p class="category">{{ p.categorie }}</p>
+            <p class="price">{{ "{:,.0f}".format(p.prix) }} FCFA</p>
+            
+            <!-- ✅ CHANGÉ : lien vers la fiche produit -->
+            <a href="{{ url_for('main.fiche_produit', produit_id=p.id) }}" class="btn">
+              <i class="fas fa-eye"></i> Voir détails
+            </a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="no-products">
+        <p>Aucun produit disponible dans cette catégorie.</p>
+        <a href="{{ url_for('main.produits') }}" class="btn"><i class="fas fa-th-large"></i> Voir toute la collection</a>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Résultats | MAKJICOLOR{% endblock %}
+{% block content %}
+
+<div class="container" style="padding: 80px 0 60px;">
+  <h1>Résultats pour "{{ query }}"</h1>
+  
+  {% if produits %}
+    <div class="product-grid" style="margin-top: 2rem;">
+      {% for p in produits %}
+      <div class="product-card">
+        <div class="product-image">
+          <img src="{{ url_for('static', filename=p.image_url or 'img/placeholder.jpg') }}" alt="{{ p.nom }}">
+        </div>
+        <div class="product-info">
+          <h3>{{ p.nom }}</h3>
+          <p class="category">{{ p.categorie }} <i class="fas fa-tag"></i></p>
+          <p class="price">{{ "{:,.0f}".format(p.prix) }} FCFA <i class="fas fa-money-bill-wave"></i></p>
+          <a href="{{ url_for('main.ajouter_panier', id=p.id) }}" class="btn"> Ajouter au panier <i class="fas fa-shopping-cart"></i></a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p style="margin-top: 2rem; color: var(--text-light);">
+      Aucun produit trouvé. Essayez un autre terme.
+    </p>
+  {% endif %}
+</div>
+
+{% endblock %}

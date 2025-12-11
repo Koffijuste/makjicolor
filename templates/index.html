@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Accueil | MAKJICOLOR{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <div class="container">
+    <h1>Peintures & Accessoires Professionnels</h1>
+    <p>Les meilleures peintures à eau, à huile et vernis disponibles à Abidjan.</p>
+  </div>
+</section>
+
+<section class="products-section" style="background-color: #F7F7F7;">
+  <div class="container">
+
+    <h2>Nos Produits</h2>
+
+    <div class="products-grid">
+
+      {% for produit in produits %}
+      <div class="product-card">
+        <p class="product-category">{{ produit.categorie }}</p>
+
+
+
+        <!-- IMAGE -->
+        <img src="{{ produit.image_url }}" alt="{{ produit.nom }}" class="product-img">
+
+        <div class="product-info">
+
+          <!-- NOM -->
+          <h3 class="product-title">{{ produit.nom }}</h3>
+
+          <!-- CATÉGORIE -->
+          <p class="product-category">{{ produit.categorie }}</p>
+
+          <!-- PRIX -->
+          <p class="product-price">{{ produit.prix }} FCFA</p>
+
+          <!-- FORM PANIER -->
+          <form method="POST" action="{{ url_for('main.ajouter_panier') }}">
+            <input type="hidden" name="id_produit" value="{{ produit.id }}">
+            <button type="submit" class="btn">Ajouter au panier</button>
+          </form>
+
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
