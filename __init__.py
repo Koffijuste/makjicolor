@@ -25,7 +25,7 @@ def create_app():
     database_url = os.environ.get('DATABASE_URL')
     if database_url:
         # Render utilise "postgres://", SQLAlchemy nécessite "postgresql://"
-        app.config['SQLALCHEMY_DATABASE_URI'] = database_url.replace("postgres://", "postgresql://", 1)
+        app.config['SQLALCHEMY_DATABASE_URI'] = database_url.replace("postgres+psycopg://", "postgresql+psycopg://", 1)
     else:
         # Développement local : SQLite
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../instance/makjicolor.db'
