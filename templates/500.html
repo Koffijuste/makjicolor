@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Erreur 500 | MAKJICOLOR{% endblock %}
+{% block content %}
+
+<div class="error-page">
+  <div class="container">
+    <div class="error-content">
+      <h1>500</h1>
+      <h2> <i class="fas fa-exclamation-triangle"></i>Oups ! Une erreur serveur est survenue</h2>
+      <p>Notre équipe technique a été informée. Veuillez réessayer plus tard.</p>
+      <div class="error-actions">
+        <a href="{{ url_for('main.portail') }}" class="btn"><i class="fas fa-home"></i> Retour à l’accueil</a>
+        <a href="{{ url_for('main.contact') }}" class="btn-outline"><i class="fas fa-envelope"></i> Nous contacter</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.error-page {
+  padding: 100px 0;
+  text-align: center;
+}
+.error-content h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 6rem;
+  color: var(--primary);
+  margin: 0 0 1rem;
+  opacity: 0.8;
+}
+.error-content h2 {
+  font-size: 2.2rem;
+  margin: 0 0 1.2rem;
+}
+.error-content p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+.error-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .error-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .error-actions .btn,
+  .error-actions .btn-outline {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+</style>
+
+{% endblock %}

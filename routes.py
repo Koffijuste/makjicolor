@@ -1,4 +1,3 @@
-# routes/__init__.py
 from flask import Blueprint, app, render_template, request, redirect, url_for, flash, session, current_app, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from models import db, Utilisateur, Produit, Panier, Commande, CommandeProduit
@@ -36,10 +35,6 @@ def conditions_vente():
 @main.route("/support-client")
 def support_client():
     return render_template("support-client.html", page_class="page-support-client")
-
-@main.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
 
 @main.route("/prestations")
 def prestations():
