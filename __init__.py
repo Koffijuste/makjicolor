@@ -1,6 +1,6 @@
 # __init__.py
 from datetime import datetime
-from flask import Flask, render_template, session
+from flask import Flask, app, render_template, session
 from flask_login import LoginManager, current_user
 from flask_migrate import Migrate
 from models import db, Utilisateur, Panier
@@ -23,12 +23,26 @@ def create_app():
 
     # === Base de données ===
     database_url = os.environ.get('DATABASE_URL')
+
     if database_url:
-        # Render utilise "postgres://", SQLAlchemy nécessite "postgresql://"
-        app.config['SQLALCHEMY_DATABASE_URI'] = database_url.replace("postgres+psycopg://", "postgresql+psycopg://", 1)
+        if database_url.startswith("postgres://"):
+            database_url = database_url.replace(
+                "postgres://",
+                "postgresql+psycopg://",
+                1
+            )
+        elif database_url.startswith("postgresql://"):
+            database_url = database_url.replace(
+                "postgresql://",
+                "postgresql+psycopg://",
+                1
+            )
+
+        app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     else:
         # Développement local : SQLite
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../instance/makjicolor.db'
+
     
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
