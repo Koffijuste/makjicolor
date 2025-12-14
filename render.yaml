@@ -1,8 +1,13 @@
+databases:
+  - name: makjicolor-db
+    databaseName: makjicolor
+    user: makjicolor
+
 services:
   - type: web
     name: makjicolor
     env: python
-    region: frankfurt        # ou oregon
+    region: frankfurt
     buildCommand: pip install -r requirements.txt
     startCommand: python app.py
     envVars:
@@ -14,3 +19,7 @@ services:
         sync: false
       - key: WHATSAPP_NUMBER
         sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: makjicolor-db
+          property: connectionString
