@@ -14,6 +14,8 @@ ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 ADMIN_PASSWORD_HASH = os.getenv("ADMIN_PASSWORD_HASH")
+SECRET_KEY = os.environ.get('SECRET_KEY')
+ 
 
 if not ADMIN_USERNAME or not ADMIN_PASSWORD:
     raise ValueError("❌ ADMIN_USERNAME et ADMIN_PASSWORD doivent être définis dans .env")
@@ -117,7 +119,7 @@ def init_admin_auth(app):
 def init_admin(app):
     admin = Admin(
         app,
-        name='MAKJICOLOR Admin',
+        name='maxime',
         index_view=SecureAdminIndexView()
     )
     admin.add_view(ProduitAdminView(Produit, db.session, endpoint='produits_admin'))
