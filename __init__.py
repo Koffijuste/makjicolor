@@ -25,14 +25,13 @@ def create_app():
     database_url = os.environ.get('DATABASE_URL')
 
     if database_url:
-        database_url = database_url.replace("postgres://", "postgresql+psycopg2://", 1)
-        database_url = database_url.replace("postgresql://", "postgresql+psycopg2://", 1)
-        database_url = database_url.replace("postgresql+psycopg://", "postgresql+psycopg2://", 1)
-        database_url = database_url.replace("mysql://", "mysql+pymysql://", 1)
-    # Pour SQLite, s'assurer d'avoir un fichier
-        if database_url.startswith("sqlite://"):
-            if database_url == "sqlite://":
-                database_url = "sqlite:///../instance/makjicolor.db"
+        if database_url.startswith("postgres://") or database_url.startswith("postgresql://"):
+            database_url = database_url.replace("postgres://", "postgresql+psycopg2://", 1)
+            database_url = database_url.replace("postgresql://", "postgresql+psycopg2://", 1)
+        elif database_url.startswith("mysql://"):
+            database_url = database_url.replace("mysql://", "mysql+pymysql://", 1)
+        elif database_url.startswith("sqlite://") and database_url == "sqlite://":
+            database_url = "sqlite:///../instance/makjicolor.db"
 
         app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     else:
