@@ -1,4 +1,3 @@
-# --- Ajoute ces imports ---
 from flask import Flask, session, redirect, url_for, request, flash, render_template_string
 from flask_admin import Admin, AdminIndexView
 from flask_admin.contrib.sqla import ModelView

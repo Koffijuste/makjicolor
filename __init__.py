@@ -1,4 +1,3 @@
-# __init__.py
 from datetime import datetime
 from flask import Flask, render_template, session
 from flask_login import LoginManager, current_user
@@ -7,7 +6,7 @@ from models import db, Utilisateur, Panier
 import os
 from dotenv import load_dotenv
 
-# Charger les variables d'environnement
+
 load_dotenv()
 
 # Initialiser les extensions globalement
@@ -35,7 +34,7 @@ def create_app():
 
         elif database_url.startswith("mysql://"):
             database_url = database_url.replace("mysql://", "mysql+pymysql://", 1)
-            
+
         elif database_url.startswith("sqlite://") and database_url == "sqlite://":
             database_url = "sqlite:///../instance/makjicolor.db"
 
