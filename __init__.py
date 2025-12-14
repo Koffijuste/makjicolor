@@ -26,8 +26,7 @@ def create_app():
 
     if database_url:
         if database_url.startswith("postgres://") or database_url.startswith("postgresql://"):
-            database_url = database_url.replace("postgres://", "postgresql+psycopg2://", 1)
-            database_url = database_url.replace("postgresql://", "postgresql+psycopg2://", 1)
+            database_url = database_url.replace("postgres://", "postgresql://", 1)
         elif database_url.startswith("mysql://"):
             database_url = database_url.replace("mysql://", "mysql+pymysql://", 1)
         elif database_url.startswith("sqlite://") and database_url == "sqlite://":
