@@ -10,7 +10,7 @@ if not app.secret_key:
     raise RuntimeError("❌ SECRET_KEY manquant")
 
 # Init Flask-Admin (UNE seule fois)
-init_admin(app)
+#init_admin(app)
 
 if __name__ == "__main__":
     app.run()
