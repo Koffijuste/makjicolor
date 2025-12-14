@@ -7,6 +7,7 @@ from flask_admin.contrib.sqla import ModelView
 from werkzeug.security import check_password_hash
 import os
 from dotenv import load_dotenv
+from wtforms import PasswordField
 
 from models import Produit, Utilisateur, db
 
@@ -65,9 +66,44 @@ class ProduitAdminView(SecureModelView):
         "description": {"rows": 3, "style": "width: 100%;"}
     }
 
-class UtilisateurAdminView(SecureModelView):
-    column_list = ["id", "email", "numero", "date_inscription", "commandes", "mot_de_passe_hash"]
-    form_columns = ["email", "numero", "mot_de_passe_hash"]
+class UtilisateurAdmin(SecureModelView):
+    column_list = ['id', 'email', 'numero', 'date_inscription']
+    form_columns = ['email', 'numero', 'mot_de_passe']
+
+    # Champ mot de passe pour le formulaire
+    form_extra_fields = {
+        'mot_de_passe': PasswordField('Mot de passe')
+    }
+
+    def on_model_change(self, form, model, is_created):
+        """
+        Cette fonction est appelée avant l'ajout/modification en base.
+        Ici, on hash le mot de passe avant de le stocker.
+        """
+        if form.mot_de_passe.data:
+            model.set_mot_de_passe(form.mot_de_passe.data)
+
+# ==============================
+# INIT ADMIN (VUES)
+# ==============================
+def init_admin(app):
+
+    if not app.secret_key:
+        raise RuntimeError("❌ SECRET_KEY requis pour Flask-Admin")
+
+    admin.init_app(
+        app,
+        index_view=SecureAdminIndexView()
+    )
+
+    admin.add_view(
+        ProduitAdminView(Produit, db.session, endpoint="produits_admin")
+    )
+    admin.add_view(
+        UtilisateurAdmin(Utilisateur, db.session, endpoint="utilisateurs_admin")
+    )
+
+    init_admin_auth(app)
 
 # ==============================
 # AUTH ADMIN (LOGIN / LOGOUT)
@@ -158,25 +194,3 @@ def init_admin_auth(app):
     def admin_logout():
         session.pop("admin_logged_in", None)
         return redirect("/admin/login")
-
-# ==============================
-# INIT ADMIN (APPEL UNIQUE)
-# ==============================
-def init_admin(app):
-
-    if not app.secret_key:
-        raise RuntimeError("❌ SECRET_KEY requis pour Flask-Admin")
-
-    admin.init_app(
-        app,
-        index_view=SecureAdminIndexView()
-    )
-
-    admin.add_view(
-        ProduitAdminView(Produit, db.session, endpoint="produits_admin")
-    )
-    admin.add_view(
-        UtilisateurAdminView(Utilisateur, db.session, endpoint="utilisateurs_admin")
-    )
-
-    init_admin_auth(app)
