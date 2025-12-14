@@ -1,6 +1,6 @@
 # __init__.py
 from datetime import datetime
-from flask import Flask, app, render_template, session
+from flask import Flask, render_template, session
 from flask_login import LoginManager, current_user
 from flask_migrate import Migrate
 from models import db, Utilisateur, Panier
@@ -21,7 +21,7 @@ def create_app():
     if not app.config['SECRET_KEY']:
         raise ValueError("❌ La variable SECRET_KEY est manquante. Définissez-la dans Render ou .env.")
 
-    # === Base de données ===
+     # === Base de données ===
     database_url = os.environ.get('DATABASE_URL')
 
     if database_url:
@@ -30,19 +30,18 @@ def create_app():
                 "postgres://",
                 "postgresql+psycopg://",
                 1
-            )
+        )
         elif database_url.startswith("postgresql://"):
             database_url = database_url.replace(
                 "postgresql://",
                 "postgresql+psycopg://",
                 1
-            )
+        )
 
         app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     else:
         # Développement local : SQLite
         app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../instance/makjicolor.db'
-
     
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

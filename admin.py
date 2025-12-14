@@ -10,6 +10,7 @@ from models import Produit, Utilisateur, db
 load_dotenv()
 
 # Récupérer les identifiants admin depuis .env
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
 ADMIN_USERNAME = os.getenv("ADMIN_USERNAME")
 ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 ADMIN_PASSWORD_HASH = os.getenv("ADMIN_PASSWORD_HASH")
@@ -17,9 +18,6 @@ ADMIN_PASSWORD_HASH = os.getenv("ADMIN_PASSWORD_HASH")
 if not ADMIN_USERNAME or not ADMIN_PASSWORD:
     raise ValueError("❌ ADMIN_USERNAME et ADMIN_PASSWORD doivent être définis dans .env")
 
-# Hachage optionnel (recommandé)
-# Pour l'utiliser : génère le hash une fois, puis stocke-le dans .env
-ADMIN_PASSWORD_HASH = generate_password_hash(ADMIN_PASSWORD)
 
 # --- Vue d'index sécurisée ---
 class SecureAdminIndexView(AdminIndexView):
@@ -70,7 +68,7 @@ def init_admin_auth(app):
             password = request.form.get('password')
             
             # Vérification simple (ou avec hash)
-            if username == ADMIN_USERNAME and password == ADMIN_PASSWORD:
+            if username == ADMIN_USERNAME and check_password_hash(ADMIN_PASSWORD_HASH, password):
                 session['admin_logged_in'] = True
                 return redirect('/admin')
             else:
