@@ -55,7 +55,7 @@ class SecureModelView(ModelView):
 # VUES ADMIN
 # ==============================
 class ProduitAdminView(SecureModelView):
-    column_list = ["id", "nom", "categorie", "prix", "dimensions", "materiau"]
+    column_list = ["id", "nom", "categorie", "prix", "dimensions", "materiau", "description", "image_url"]
     form_columns = [
         "nom", "categorie", "prix",
         "dimensions", "materiau",
