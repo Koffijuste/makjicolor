@@ -1,4 +1,5 @@
 from flask import Blueprint, app, render_template, request, redirect, url_for, flash, session, current_app, jsonify
+from flask import Response
 from flask_login import current_user, login_user, logout_user, login_required
 from models import db, Utilisateur, Produit, Panier, Commande, CommandeProduit
 import os
@@ -74,6 +75,33 @@ def contact():
 @login_required
 def account():
     return render_template("account.html", user=current_user, page_class="page-account")
+
+@main.route("/blog")
+def blog():
+    return render_template("blog.html", page_class="page-blog")
+
+@main.route('/sitemap.xml')
+def sitemap():
+    pages = [
+        url_for('main.portail', _external=True),
+        url_for('main.accueil', _external=True),
+        url_for('main.produits', _external=True),
+        url_for('main.histoire', _external=True),
+        url_for('main.contact', _external=True),
+        url_for('main.prestations', _external=True),
+    ]
+    # Ajouter toutes les pages produits
+    produits = Produit.query.all()
+    for p in produits:
+        pages.append(url_for('main.fiche_produit', produit_id=p.id, _external=True))
+    
+    sitemap_xml = '''<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'''
+    for url in pages:
+        sitemap_xml += f"\n  <url><loc>{url}</loc></url>"
+    sitemap_xml += "\n</urlset>"
+    
+    return Response(sitemap_xml, mimetype='application/xml')
 
 @main.route("/debug")
 def debug():

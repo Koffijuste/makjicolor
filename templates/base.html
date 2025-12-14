@@ -3,7 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{% block title %}MAKJICOLOR{% endblock %}</title>
+  <meta name="google-site-verification" content="3V7iatCjQ-xwCFdJEtlF3Z7HgU2IWZLpNrTuZmP6rng" />
+  <title>{% block title %}MAKJICOLOR — Peinture Professionnelle à Abidjan{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Vente de peintures professionnelles à Abidjan : peinture intérieure, extérieure, vernis, accessoires. Livraison en Côte d’Ivoire.{% endblock %}">
+  <meta name="keywords" content="peinture Abidjan, peinture bâtiment Côte d'Ivoire, vernis professionnel, accessoires peinture, MAKJICOLOR">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <!-- Font Awesome 6 (Free) -->
@@ -23,10 +26,7 @@
       <a href="{{ url_for('main.portail') }}" class="logo"><img src="{{url_for('static', filename='img/logo.jpg')}}" alt="Logo_MAKJICOLOR" style="width: auto; height: 70px; border-radius: 20%;"></a>
       
       <!-- Barre de recherche (visible sur desktop) -->
-      <form method="GET" action="{{ url_for('main.recherche') }}" class="search-form">
-        <input type="text" name="q" placeholder="Rechercher un produit..." aria-label="Rechercher">
-        <button type="submit" aria-label="Rechercher">🔍</button>
-      </form>
+      
     </div>
 
     <!-- Navigation + Panier (desktop) -->
@@ -36,6 +36,7 @@
         <li><a href="{{ url_for('main.produits') }}"> <i class="fas fa-paint-roller"></i> Produits</a></li>
         <li><a href="{{ url_for('main.prestations') }}"> <i class="fas fa-briefcase"></i> Prestations</a></li>
         <li><a href="{{ url_for('main.contact') }}"> <i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="{{ url_for('main.blog') }}"><i class="fas fa-blog"></i> Blog</a></li>
         {% if current_user.is_authenticated %}
         <a href="{{ url_for('main.account') }}" title="Mon Compte">
           <i class="fas fa-user"></i>

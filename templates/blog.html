@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% block title %}Blog Peinture | Conseils & Astuces | MAKJICOLOR{% endblock %}
+{% block meta_description %}Découvrez nos guides pratiques sur la peinture bâtiment, les finitions, les produits adaptés au climat ivoirien et les tendances déco à Abidjan.{% endblock %}
+{% block content %}
+
+<div class="blog-container" style="background-image: url('{{ url_for('static', filename='img/vue-de-dessus-sur-pot-de-peinture.jpg') }}'); background-position: center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; width: 100%;">
+  <div class="container">
+    <div class="blog-hero">
+      <h1>Conseils & Astuces Peinture</h1>
+      <p class="subtitle">Des guides pratiques pour bien choisir vos peintures, accessoires et techniques à Abidjan et en Côte d’Ivoire.</p>
+    </div>
+
+    <div class="blog-grid">
+      <!-- Article 1 -->
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="{{ url_for('static', filename='img/pexels-blue-bird-7218009.jpg') }}" alt="Peinture intérieure Abidjan">
+        </div>
+        <div class="blog-content">
+          <span class="blog-category">Intérieur</span>
+          <h2>Comment choisir sa peinture intérieure à Abidjan ?</h2>
+          <p>Humidité, chaleur, lumière… Découvrez les critères essentiels pour une peinture intérieure durable en climat tropical.</p>
+          <a href="{{ url_for('main.produits') }}" class="blog-link">Lire la suite →</a>
+        </div>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="{{ url_for('static', filename='img/peinture_batiment.jpg') }}" alt="Peinture extérieure Côte d'Ivoire">
+        </div>
+        <div class="blog-content">
+          <span class="blog-category">Extérieur</span>
+          <h2>Les 5 erreurs à éviter en peinture extérieure</h2>
+          <p>De la préparation du support au choix du produit, voici ce qu’il ne faut surtout pas faire pour une façade durable.</p>
+          <a href="{{ url_for('main.produits') }}" class="blog-link">Lire la suite →</a>
+        </div>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="{{ url_for('static', filename='img/boisver.jpg') }}" alt="Vernis pour bois Abidjan">
+        </div>
+        <div class="blog-content">
+          <span class="blog-category">Vernis</span>
+          <h2>Quel vernis pour du bois en climat tropical ?</h2>
+          <p>Protection UV, résistance à l’humidité, séchage rapide : découvrez notre sélection de vernis professionnels pour vos meubles et structures.</p>
+          <a href="{{ url_for('main.produits') }}" class="blog-link">Lire la suite →</a>
+        </div>
+      </article>
+
+      <!-- Article 4 -->
+      <article class="blog-card">
+        <div class="blog-image">
+          <img src="{{ url_for('static', filename='img/pexels-n-voitkevich-5641826.jpg') }}" alt="Accessoires peinture professionnels">
+        </div>
+        <div class="blog-content">
+          <span class="blog-category">Accessoires</span>
+          <h2>Les outils indispensables pour un chantier pro</h2>
+          <p>Rouleaux, pinceaux, bâches, rubans… Quels accessoires choisir pour un rendu parfait et un chantier propre ?</p>
+          <a href="{{ url_for('main.produits') }}" class="blog-link">Lire la suite →</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="blog-cta">
+      <h2>Vous avez un projet de peinture ?</h2>
+      <p>Notre équipe vous conseille gratuitement et vous propose des produits adaptés à vos besoins.</p>
+      <div class="blog-buttons">
+        <a href="{{ url_for('main.produits') }}" class="btn">Découvrir nos produits</a>
+        <a href="{{ url_for('main.contact') }}" class="btn-outline">Demander un devis</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.blog-container {
+  padding: 80px 0 60px;
+}
+.blog-hero {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.blog-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.6rem;
+  margin-bottom: 1rem;
+}
+.subtitle {
+  color: var(--text-light);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.blog-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s;
+}
+.blog-card:hover {
+  transform: translateY(-6px);
+}
+.blog-image {
+  height: 200px;
+  overflow: hidden;
+}
+.blog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.blog-card:hover .blog-image img {
+  transform: scale(1.05);
+}
+.blog-content {
+  padding: 24px;
+}
+.blog-category {
+  display: inline-block;
+  background: rgba(212, 175, 55, 0.1);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.blog-content h2 {
+  font-size: 1.4rem;
+  margin: 0 0 14px;
+}
+.blog-content p {
+  color: var(--text-light);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+.blog-link {
+  color: var(--primary);
+  font-weight: 600;
+  text-decoration: none;
+}
+.blog-link:hover {
+  text-decoration: underline;
+}
+
+/* CTA finale */
+.blog-cta {
+  text-align: center;
+  padding: 2.5rem;
+  background: rgba(212, 175, 55, 0.05);
+  border-radius: 16px;
+  margin-top: 2rem;
+}
+.blog-cta h2 {
+  margin-bottom: 1rem;
+}
+.blog-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+@media (max-width: 600px) {
+  .blog-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  .blog-buttons .btn,
+  .blog-buttons .btn-outline {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+</style>
+
+{% endblock %}
