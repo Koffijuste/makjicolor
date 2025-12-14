@@ -66,8 +66,8 @@ class ProduitAdminView(SecureModelView):
     }
 
 class UtilisateurAdminView(SecureModelView):
-    column_list = ["id", "email", "numero"]
-    form_columns = ["email", "numero"]
+    column_list = ["id", "email", "numero", "date_inscription", "commandes", "mot_de_passe_hash"]
+    form_columns = ["email", "numero", "mot_de_passe_hash"]
 
 # ==============================
 # AUTH ADMIN (LOGIN / LOGOUT)

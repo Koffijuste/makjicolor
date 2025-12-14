@@ -279,13 +279,16 @@ def login():
     if request.method == "POST":
         email = request.form["email"]
         pwd = request.form["password"]
-        user = Utilisateur.query.filter_by(email=email, mot_de_passe=pwd).first()
-        if user:
+
+        user = Utilisateur.query.filter_by(email=email).first()  # cherche juste par email
+        if user and user.check_mot_de_passe(pwd):  # vérifie le mot de passe hashé
             from flask_login import login_user
             login_user(user)
-            return redirect(url_for("main.panier"))
+            return redirect(url_for("main.panier"))  # ou la page de ton choix
         flash("Email ou mot de passe incorrect.", "error")
+
     return render_template("login.html", page_class="page-login")
+
 
 @main.route("/register", methods=["GET", "POST"])
 def register():
@@ -299,7 +302,8 @@ def register():
         elif Utilisateur.query.filter_by(email=email).first() or Utilisateur.query.filter_by(numero=numero).first():
             flash("Cet email ou numéro est déjà utilisé.", "error")
         else:
-            user = Utilisateur(email=email, mot_de_passe=pwd1, numero=numero)
+            user = Utilisateur(email=email, numero=numero)
+            user.set_mot_de_passe(pwd1)
             db.session.add(user)
             db.session.commit()
             from flask_login import login_user

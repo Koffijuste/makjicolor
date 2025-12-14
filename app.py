@@ -1,5 +1,4 @@
 import os
-from admin import init_admin
 from __init__ import create_app
 
 app = create_app()
