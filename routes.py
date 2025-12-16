@@ -2,7 +2,7 @@ from flask import Blueprint, app, render_template, request, redirect, url_for, f
 from flask import Response
 from flask_login import current_user, login_user, logout_user, login_required
 from models import db, Utilisateur, Produit, Panier, Commande, CommandeProduit
-import os
+import os, re
 import urllib.parse
 
 main = Blueprint('main', __name__)
@@ -317,18 +317,47 @@ def login():
 
     return render_template("login.html", page_class="page-login")
 
+EMAIL_REGEX = re.compile(r'^[^\s@]+@[^\s@]+\.[^\s@]+$')
+PHONE_REGEX = re.compile(r'^(?:\+225|0)[1-9]\d{8}$')
 
 @main.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        email = request.form["email"]
-        numero = request.form["numero"]
-        pwd1 = request.form["password"]
-        pwd2 = request.form["confirm_password"]
+        email = request.form.get("email", "").strip().lower()
+        numero = request.form.get("numero", "")
+        pwd1 = request.form.get("password", "")
+        pwd2 = request.form.get("confirm_password", "")
         if pwd1 != pwd2:
             flash("Les mots de passe ne correspondent pas.", "error")
-        elif Utilisateur.query.filter_by(email=email).first() or Utilisateur.query.filter_by(numero=numero).first():
-            flash("Cet email ou numéro est déjà utilisé.", "error")
+            return redirect(url_for("main.register"))
+        
+        if len(pwd1) < 8:
+            flash("Mot de passe trop court.", "error")
+            return redirect(url_for("main.register"))
+        
+        if not email or not pwd1 or not pwd2:
+            flash("Champs invalide", "error")
+            return redirect(url_for("main.register"))
+        
+        if not EMAIL_REGEX.match(email):
+            flash("Format d'email invalide.", "error")
+            return redirect(url_for("main.register"))
+        
+        numero = re.sub(r'[\s.-]', '', numero)
+        if not PHONE_REGEX.match(numero):
+            flash("Format du numéro invalide.", "error")
+            return redirect(url_for("main.register"))
+        
+        if numero.startswith('0'):
+            numero = '+225' + numero[1:]
+
+        if Utilisateur.query.filter_by(email=email).first():
+            flash("Cet email est déjà utilisé.", "error")
+            return redirect(url_for("main.register"))
+        
+        if Utilisateur.query.filter_by(numero=numero).first():
+            flash("Ce numéro est déjà utilisé.", "error")
+            return redirect(url_for("main.register"))
         else:
             user = Utilisateur(email=email, numero=numero)
             user.set_mot_de_passe(pwd1)
@@ -360,5 +389,5 @@ def inject_data():
 @main.route("/toggle-dark-mode")
 def toggle_dark_mode():
     session['dark_mode'] = not session.get('dark_mode', False)
-    return redirect(request.referrer or url_for("accueil"))
+    return redirect(request.referrer or url_for("portail"))
 # (Ajoute aussi : contact, account, prestations, recherche, legal, 404, toggle-dark-mode, etc.)

@@ -54,6 +54,13 @@ const closeCart = document.getElementById('close-cart');
 const cartItems = document.getElementById('cart-items');
 const cartTotal = document.getElementById('cart-total');
 const checkoutBtn = document.getElementById('checkout-btn');
+const email = document.getElementById('email');
+const numero = document.getElementById('numero')
+
+// Regex 
+
+const Email_Regex = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+/.[a-zA-Z](2,)$/;
+const Num_Regex = /^(?:\+225|0)[1-9](?:[ .-]?\d(2))(4)$/
 
 // === Afficher les produits ===
 products.forEach(product => {
@@ -98,6 +105,7 @@ modalClose.addEventListener('click', () => closeModals());
 modalOverlay.addEventListener('click', () => closeModals());
 cartOverlay.addEventListener('click', () => closeModals());
 
+
 function closeModals() {
   productModal.classList.remove('open');
   cartModal.classList.remove('open');
@@ -137,7 +145,7 @@ closeCart.addEventListener('click', () => {
 function renderCart() {
   if (cart.length === 0) {
     cartItems.innerHTML = '<p>Votre panier est vide.</p>';
-    cartTotal.textContent = 'Total : 0 €';
+    cartTotal.textContent = 'Total : 0 FCFA';
     return;
   }
 
@@ -152,11 +160,11 @@ function renderCart() {
       <div>
         <strong>${item.name}</strong> × ${item.quantity}
       </div>
-      <div>${itemTotal} €</div>
+      <div>${itemTotal} FCFA</div>
     `;
     cartItems.appendChild(div);
   });
-  cartTotal.textContent = `Total : ${total} €`;
+  cartTotal.textContent = `Total : ${total} FCFA`;
 }
 
 // === Checkout ===
